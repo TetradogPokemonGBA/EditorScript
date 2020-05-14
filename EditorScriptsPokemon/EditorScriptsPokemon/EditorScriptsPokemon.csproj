@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Gabriel.Cat.Blazor\Gabriel.Cat.Blazor.Client\Gabriel.Cat.Blazor.Client.csproj" />
-    <ProjectReference Include="..\..\PokemonGBAFrameWork\PokemonGBAFramework.Core\PokemonGBAFramework.Core.csproj" />
+    <ProjectReference Include="..\..\..\Gabriel.Cat.Blazor\Gabriel.Cat.Blazor.Client\Gabriel.Cat.Blazor.Client.csproj" />
+    <ProjectReference Include="..\..\..\PokemonGBAFrameWork\PokemonGBAFramework.Core\PokemonGBAFramework.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

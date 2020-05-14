@@ -2,12 +2,12 @@
 
 @inject IFileReaderService fileReaderService
 @inject IJSRuntime JS
-
+@inject NavigationManager Navigator
 <h3>Cargar Rom</h3>
 <input type="file" @ref="inpCargarRom" @onchange="CargarRomMethod" accept=".gba" />
 
 @code {
-    [CascadingParameter] public RomGba Rom { get; set; }
+    [CascadingParameter] public RomPokemon Rom { get; set; }
 
     ElementReference inpCargarRom;
 
@@ -19,10 +19,10 @@
         {
             try
             {
-                Rom = new RomGba(await file.Read(BUFFER));
-                Console.WriteLine($"Se ha cargado el archivo GBA edicion {Rom.Edicion.Version}");
+                Rom.Rom = new RomGba(await file.Read(BUFFER));
+                Console.WriteLine($"Se ha cargado el archivo GBA edicion {Rom.Rom.Edicion.Version}");
                 Console.WriteLine("FIN");
-
+                Navigator.NavigateTo("/");
             }
             catch { await JS.MostrarMensajeAsync("Rom no compatible..."); }
 

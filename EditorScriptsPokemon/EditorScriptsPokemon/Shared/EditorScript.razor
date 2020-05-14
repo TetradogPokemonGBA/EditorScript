@@ -1,35 +1,44 @@
-﻿@page "/"
-@page "/{Offset:int}"
+﻿@page "/EditorScript/"
+@page "/EditorScript/{Offset}"
 
+@if (Rom.IsLoaded)
+{
 
-Offset 0x<InputText @bind-Value="@OffsetString" /> <input type="button" @onclick="()=>LoadScript()"/><br/>
-<textarea @bind-Value="@ScriptText"/>
+<div>Offset 0x</div>
+<textarea @bind="@Offset" />
+<Button @onclick="@(() => LoadScript())">Load</Button>
+<br />
+<textarea class="text-xl-center" @bind="@ScriptText" />
 
-
+}
 
 @code {
-    [CascadingParameter]public RomGba Rom { get; set; }
-    [Parameter] public int Offset { get; set; } = -1;
+    [CascadingParameter] public RomPokemon Rom { get; set; }
+    [Parameter] public string Offset { get; set; }="14BC72";
 
     string ScriptText { get; set; }
 
-    string OffsetString{
-        get => Offset >= 0 ? ((Hex)Offset).ToString() : "";
-        set
-        {
-            if (Hex.ValidaString(value))
-                Offset = (int)(Hex)value;
-        }
+    protected override void OnInitialized()
+    {
+        Console.WriteLine($"Inicio el editor de script {(!string.IsNullOrEmpty(Offset)?Offset:"")}");
+        base.OnInitialized();
     }
+
+
 
     public void LoadScript(int offset = -1)
     {
-        if (offset < 0)
-            offset = Offset;
 
+        Script script;
+
+        if (offset < 0&&!string.IsNullOrEmpty(Offset))
+            offset = (int)(Hex)Offset;
+        Console.WriteLine(offset);
         if (offset >= 0)
         {
-            ScriptText = new Script(Rom, Offset).GetAllDeclaracionXSE(Rom, null);
+
+                script = new Script(Rom.Rom, offset);
+                ScriptText = script.GetAllDeclaracionXSE(Rom.Rom, null);
         }
     }
 }

@@ -16,5 +16,10 @@
     </div>
 </div>
 @code{
-    private RomGba Rom { get; set; }
+    private RomPokemon Rom { get; set; }
+    protected override void OnInitialized()
+    {
+        Rom = new RomPokemon();
+        base.OnInitialized();
+    }
 }

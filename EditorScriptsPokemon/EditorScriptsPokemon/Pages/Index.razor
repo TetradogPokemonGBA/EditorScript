@@ -1,12 +1,10 @@
 ﻿@page "/"
 
-@if(Rom!=default)
+@if(Rom.IsLoaded)
 {
-    <TabControl @ref="tabScripts" ShowPagesIfOnlyOne="false" >
-        <TabItem>
-            <EditorScript/>
-        </TabItem>
-    </TabControl>
+ 
+   <EditorScript/>
+        
 }
 else
 {
@@ -14,6 +12,11 @@ else
 }
 
 @code{
-    [CascadingParameter]public RomGba Rom { get; set; }
-    ElementReference tabScripts;
+    [CascadingParameter]public RomPokemon Rom { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
 }
