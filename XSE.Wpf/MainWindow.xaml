@@ -1,0 +1,41 @@
+﻿<Window x:Class="XSE.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XSE.Wpf"
+        mc:Ignorable="d"
+        Title="XSE.WPF" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem  Header="Archivo">
+                <MenuItem Header="Nueva pestaña"/>
+                <MenuItem Header="Abrir..."/>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <TabControl x:Name="tabScripts">
+                <TabItem>
+                    <local:ZonaScript x:Name="znScirpt1"/>
+                </TabItem>
+            </TabControl>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <local:CalculadoraHex/>
+                <RichTextBox x:Name="rtbNotas" AcceptsReturn="True" Grid.Row="1" Background="LightGoldenrodYellow" KeyUp="rtbNotas_KeyUp"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
