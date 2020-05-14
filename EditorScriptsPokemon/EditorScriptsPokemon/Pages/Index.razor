@@ -1,0 +1,19 @@
+﻿@page "/"
+
+@if(Rom!=default)
+{
+    <TabControl @ref="tabScripts" ShowPagesIfOnlyOne="false" >
+        <TabItem>
+            <EditorScript/>
+        </TabItem>
+    </TabControl>
+}
+else
+{
+    <LoadRom/>
+}
+
+@code{
+    [CascadingParameter]public RomGba Rom { get; set; }
+    ElementReference tabScripts;
+}

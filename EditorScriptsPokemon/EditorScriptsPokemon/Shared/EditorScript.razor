@@ -1,0 +1,35 @@
+﻿@page "/"
+@page "/{Offset:int}"
+
+
+Offset 0x<InputText @bind-Value="@OffsetString" /> <input type="button" @onclick="()=>LoadScript()"/><br/>
+<textarea @bind-Value="@ScriptText"/>
+
+
+
+@code {
+    [CascadingParameter]public RomGba Rom { get; set; }
+    [Parameter] public int Offset { get; set; } = -1;
+
+    string ScriptText { get; set; }
+
+    string OffsetString{
+        get => Offset >= 0 ? ((Hex)Offset).ToString() : "";
+        set
+        {
+            if (Hex.ValidaString(value))
+                Offset = (int)(Hex)value;
+        }
+    }
+
+    public void LoadScript(int offset = -1)
+    {
+        if (offset < 0)
+            offset = Offset;
+
+        if (offset >= 0)
+        {
+            ScriptText = new Script(Rom, Offset).GetAllDeclaracionXSE(Rom, null);
+        }
+    }
+}

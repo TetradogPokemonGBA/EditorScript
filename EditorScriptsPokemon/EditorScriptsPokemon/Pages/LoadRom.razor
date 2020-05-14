@@ -1,0 +1,32 @@
+﻿@page "/CargarRom"
+
+@inject IFileReaderService fileReaderService
+@inject IJSRuntime JS
+
+<h3>Cargar Rom</h3>
+<input type="file" @ref="inpCargarRom" @onchange="CargarRomMethod" accept=".gba" />
+
+@code {
+    [CascadingParameter] public RomGba Rom { get; set; }
+
+    ElementReference inpCargarRom;
+
+    async Task CargarRomMethod()
+    {
+        const int BUFFER = 400 * 1024;
+
+        foreach (IFileReference file in await fileReaderService.CreateReference(inpCargarRom).EnumerateFilesAsync())
+        {
+            try
+            {
+                Rom = new RomGba(await file.Read(BUFFER));
+                Console.WriteLine($"Se ha cargado el archivo GBA edicion {Rom.Edicion.Version}");
+                Console.WriteLine("FIN");
+
+            }
+            catch { await JS.MostrarMensajeAsync("Rom no compatible..."); }
+
+        }
+    }
+
+}
