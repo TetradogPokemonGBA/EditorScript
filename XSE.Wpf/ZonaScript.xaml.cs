@@ -62,14 +62,14 @@ namespace XSE.Wpf
             cmbRomsCargadas.SelectionChanged += ChangeRom;
             
         }
-        public RomGba Rom { get; set; }
+        public byte[] Rom { get; set; }
         private void ChangeRom(object sender, SelectionChangedEventArgs e)
         {
             RomItem romItem;
             if (cmbRomsCargadas.SelectedIndex > 0)
             {
                 romItem = ((RomItem)cmbRomsCargadas.SelectedItem);
-                Rom = new RomGba(romItem.Path);
+                Rom = File.ReadAllBytes(romItem.Path);
 
             }
 
