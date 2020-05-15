@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:XSE.Wpf"
+        xmlns:local="clr-namespace:XSE.Wpf" xmlns:wpf="clr-namespace:Gabriel.Cat.Wpf;assembly=Gabriel.Cat.S.Wpf"
         mc:Ignorable="d"
         Title="XSE.WPF" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="20"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Menu>
@@ -25,12 +25,13 @@
             <TabControl x:Name="tabScripts"/>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition MaxHeight="250"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <local:CalculadoraHex/>
-                <RichTextBox x:Name="rtbNotas" AcceptsReturn="True" Grid.Row="1" Background="LightGoldenrodYellow" KeyUp="rtbNotas_KeyUp"/>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <wpf:RicoTextBox x:Name="rtbNotas" AcceptsReturn="True"/>
+                </ScrollViewer>
             </Grid>
         </Grid>
     </Grid>

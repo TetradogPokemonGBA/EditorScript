@@ -28,28 +28,25 @@ namespace XSE.Wpf
         {
             InitializeComponent();
             if (File.Exists(PathNotas))
-                rtbNotas.AppendText(File.ReadAllText(PathNotas));
+                rtbNotas.TextWithFormat=File.ReadAllText(PathNotas);
+            
             timerGuardar = new Timer();
             timerGuardar.Interval = 100;
             timerGuardar.Elapsed += (s, e) => SaveNotas();
             tabScripts.SelectionChanged += (s, e) => (tabScripts.SelectedContent as ZonaScript).Refresh();
             MenuItemNuevaPestañaClick();
+            rtbNotas.TextChanged += rtbNotas_TextChanged;
         }
 
         void SaveNotas()
         {
-            string notas = rtbNotas.GetText();
+            string notas = rtbNotas.TextWithFormat;
             if (string.IsNullOrEmpty(notas))
                 File.Delete(PathNotas);
             else File.WriteAllText(PathNotas, notas);
             timerGuardar.Stop();
         }
 
-        private void rtbNotas_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (!timerGuardar.Enabled)
-                timerGuardar.Start();
-        }
 
         private void MenuItemNuevaPestañaClick(object sender=null, RoutedEventArgs e=null)
         {
@@ -72,6 +69,12 @@ namespace XSE.Wpf
             };
             pestaña.ContextMenu = context;
 
+        }
+
+        private void rtbNotas_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!timerGuardar.Enabled)
+                timerGuardar.Start();
         }
     }
 }

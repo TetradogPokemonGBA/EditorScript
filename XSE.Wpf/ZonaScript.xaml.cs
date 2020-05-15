@@ -73,7 +73,6 @@ namespace XSE.Wpf
 
             }
 
-            btnCheck.IsEnabled = Rom != default;
             btnCompilar.IsEnabled = Rom != default;
             btnGuardar.IsEnabled = Rom != default;
             btnReadScript.IsEnabled = Rom != default;
@@ -89,7 +88,7 @@ namespace XSE.Wpf
             RomItem romItem;
 
             OpenFileDialog opnFile = new OpenFileDialog();
-            opnFile.Filter = "GBA|*.gba;*.bak";
+            opnFile.Filter = "GBA|*.gba;*.bak|Todos|*.*";
             if ( opnFile.ShowDialog().GetValueOrDefault())
             {
                 try
@@ -113,7 +112,7 @@ namespace XSE.Wpf
         public void Refresh()
         {
             cmbRomsCargadas.SelectionChanged -= ChangeRom;
-            cmbRomsCargadas.ItemsSource = lstRoms.ToArray();//no les gusta compartir...
+            cmbRomsCargadas.ItemsSource = lstRoms.ToArray();
             cmbRomsCargadas.SelectionChanged += ChangeRom;
         }
 
@@ -126,7 +125,15 @@ namespace XSE.Wpf
 
         private void btnCheck_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                Script.FromXSE(txtScript.Text.Split('\n'));
+                MessageBox.Show("Todo correcto!");
+            }
+            catch(ScriptMalFormadoException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnReadScript_Click(object sender, RoutedEventArgs e)

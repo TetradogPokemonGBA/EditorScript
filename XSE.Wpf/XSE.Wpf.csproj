@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Gabriel.Cat.Wpf\Gabriel.Cat.S.Wpf\Gabriel.Cat.S.Wpf.csproj" />
     <ProjectReference Include="..\..\PokemonGBAFrameWork\PokemonGBAFramework.Core\PokemonGBAFramework.Core.csproj" />
   </ItemGroup>
 
