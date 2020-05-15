@@ -28,9 +28,9 @@
             <TextBlock Text="Archivo" VerticalAlignment="Center"/>
             <ComboBox x:Name="cmbRomsCargadas" Grid.Column="1"/>
             <Button x:Name="btnAbrir" Content="A" Grid.Column="2" Click="btnAbrir_Click"/>
-            <Button x:Name="btnGuardar" Content="S" Grid.Column="3" Click="btnGuardar_Click"/>
-            <Button x:Name="btnCompilar" Content="C" Grid.Column="4" Click="btnCompilar_Click"/>
-            <Button x:Name="btnCheck" Content="SC" Grid.Column="5" Click="btnCheck_Click"/>
+            <Button x:Name="btnGuardar" Content="S" IsEnabled="False" Grid.Column="3" Click="btnGuardar_Click"/>
+            <Button x:Name="btnCompilar" Content="C" IsEnabled="False"  Grid.Column="4" Click="btnCompilar_Click"/>
+            <Button x:Name="btnCheck" Content="SC" IsEnabled="False"  Grid.Column="5" Click="btnCheck_Click"/>
             <Button Grid.Column="6"/>
             <TextBlock Text="Dire." VerticalAlignment="Center" Grid.Column="7"/>
             <Grid Grid.Column="8">
@@ -43,7 +43,7 @@
                 </Viewbox>
                 <TextBox x:Name="txtOffsetHex" VerticalAlignment="Center" BorderThickness="0" ToolTip="Offset script to read" Grid.Column="1"/>
             </Grid>
-            <Button x:Name="btnReadScript" Content="R" Grid.Column="9" Click="btnReadScript_Click"/>
+            <Button x:Name="btnReadScript" IsEnabled="False"  Content="R" Grid.Column="9" Click="btnReadScript_Click"/>
             <Button Grid.Column="10"/>
         </Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">

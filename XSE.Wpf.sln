@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSE.Wpf", "XSE.Wpf\XSE.Wpf.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonGBAFramework.Core", "..\PokemonGBAFrameWork\PokemonGBAFramework.Core\PokemonGBAFramework.Core.csproj", "{08929A89-978C-4665-8772-A4828ABEC9D7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gabriel.Cat.S.Wpf", "..\Gabriel.Cat.Wpf\Gabriel.Cat.S.Wpf\Gabriel.Cat.S.Wpf.csproj", "{5A527395-2487-4229-8999-6E4CE3BBA243}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{08929A89-978C-4665-8772-A4828ABEC9D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08929A89-978C-4665-8772-A4828ABEC9D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08929A89-978C-4665-8772-A4828ABEC9D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A527395-2487-4229-8999-6E4CE3BBA243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A527395-2487-4229-8999-6E4CE3BBA243}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A527395-2487-4229-8999-6E4CE3BBA243}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A527395-2487-4229-8999-6E4CE3BBA243}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

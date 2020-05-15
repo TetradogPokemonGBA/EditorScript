@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <Menu>
             <MenuItem  Header="Archivo">
-                <MenuItem Header="Nueva pestaña"/>
+                <MenuItem Header="Nueva pestaña" Click="MenuItemNuevaPestañaClick"/>
                 <MenuItem Header="Abrir..."/>
             </MenuItem>
         </Menu>
@@ -22,11 +22,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
-            <TabControl x:Name="tabScripts">
-                <TabItem>
-                    <local:ZonaScript x:Name="znScirpt1"/>
-                </TabItem>
-            </TabControl>
+            <TabControl x:Name="tabScripts"/>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
