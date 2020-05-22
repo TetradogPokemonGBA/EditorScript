@@ -3,13 +3,15 @@
 
 @if (Rom.IsLoaded)
 {
-
-<div>Offset 0x</div>
-<textarea @bind="@Offset" />
-<Button @onclick="@(() => LoadScript())">Load</Button>
-<br />
-<textarea class="text-xl-center" @bind="@ScriptText" />
-
+    <div class="divScript">
+        <div>
+            <text>Offset 0x</text>
+            <textarea class="txtOffset" @bind="@Offset" />
+            <Button @onclick="@(() => LoadScript())">Load</Button>
+        </div>
+        <br />
+<textarea class="txtScript" @bind="@ScriptText" />
+    </div>
 }
 
 @code {
@@ -18,14 +20,6 @@
 
     string ScriptText { get; set; }
 
-    protected override void OnInitialized()
-    {
-        Console.WriteLine($"Inicio el editor de script {(!string.IsNullOrEmpty(Offset)?Offset:"")}");
-        base.OnInitialized();
-    }
-
-
-
     public void LoadScript(int offset = -1)
     {
 
@@ -33,12 +27,11 @@
 
         if (offset < 0&&!string.IsNullOrEmpty(Offset))
             offset = (int)(Hex)Offset;
-        Console.WriteLine(offset);
         if (offset >= 0)
         {
 
                 script = new Script(Rom.Rom, offset);
-                ScriptText = script.GetAllDeclaracionXSE(Rom.Rom, null);
+                ScriptText = script.ToXSEOrdenadoPorBloques();
         }
     }
 }

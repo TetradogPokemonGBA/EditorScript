@@ -20,8 +20,6 @@
             try
             {
                 Rom.Rom = new RomGba(await file.Read(BUFFER));
-                Console.WriteLine($"Se ha cargado el archivo GBA edicion {Rom.Rom.Edicion.Version}");
-                Console.WriteLine("FIN");
                 Navigator.NavigateTo("/");
             }
             catch { await JS.MostrarMensajeAsync("Rom no compatible..."); }

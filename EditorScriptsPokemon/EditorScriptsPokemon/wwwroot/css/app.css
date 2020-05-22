@@ -181,3 +181,13 @@ app {
         display: block;
     }
 }
+
+.txtOffset {
+    height: 30px;
+    vertical-align: middle;
+}
+.txtScript{
+    min-width:100%;
+
+    /*resize:vertical;*/
+}
