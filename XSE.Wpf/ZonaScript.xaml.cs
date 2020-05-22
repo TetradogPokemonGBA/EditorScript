@@ -2,6 +2,8 @@
 using Gabriel.Cat.S.Utilitats;
 using Microsoft.Win32;
 using PokemonGBAFramework.Core;
+using PokemonGBAFramework.Core.BuildScript;
+using PokemonGBAFramework.Core.StringToScript;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -48,6 +50,7 @@ namespace XSE.Wpf
             }
         }
 
+        public const string FORMATOXSE = "rbc";
         static List<RomItem> lstRoms;
         static ZonaScript()
         {
@@ -74,13 +77,30 @@ namespace XSE.Wpf
             }
 
             btnCompilar.IsEnabled = Rom != default;
-            btnGuardar.IsEnabled = Rom != default;
             btnReadScript.IsEnabled = Rom != default;
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
+            string pathFile;
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            
+            saveFileDialog.DefaultExt = FORMATOXSE;
 
+            if(saveFileDialog.ShowDialog().GetValueOrDefault())
+            {
+                if(Rom==default||saveFileDialog.FileName.EndsWith(FORMATOXSE))
+                {
+                    if (!saveFileDialog.FileName.EndsWith(FORMATOXSE))
+                        pathFile = $"{saveFileDialog.FileName}.{FORMATOXSE}";
+                    else pathFile = saveFileDialog.FileName;
+                    File.WriteAllText(pathFile, txtScript.Text);
+                }else
+                {
+                    File.WriteAllBytes(saveFileDialog.FileName, Rom);
+                }
+            }    
+            
         }
 
         private void btnAbrir_Click(object sender=null, RoutedEventArgs e=null)
@@ -118,8 +138,11 @@ namespace XSE.Wpf
 
         private void btnCompilar_Click(object sender, RoutedEventArgs e)
         {
-            IList<Script> scripts = Script.FromXSE(txtScript.Text.Split('\n'));
-            txtOffsetHex.Text = (Hex)scripts.First().SetScript(Rom);
+            ByteScriptBuilder scriptBuilder = new ByteScriptBuilder();
+            IList<Script> scripts =txtScript.Text.GetFromXSE();
+            scriptBuilder.AddRange(scripts);
+            scriptBuilder.Set(Rom);
+            txtOffsetHex.Text = (Hex)scriptBuilder.Set(Rom).First().Key;
             LoadScript();
         }
 
@@ -127,10 +150,10 @@ namespace XSE.Wpf
         {
             try
             {
-                Script.FromXSE(txtScript.Text.Split('\n'));
+                txtScript.Text.GetFromXSE();
                 MessageBox.Show("Todo correcto!");
             }
-            catch(ScriptMalFormadoException ex)
+            catch(ScriptXSEMalFormadoException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -152,8 +175,8 @@ namespace XSE.Wpf
 
         private Script LoadScript()
         {
-            Script script = new Script(Rom, (int)(Hex)txtOffsetHex.Text);
-            txtScript.Text = script.GetAllDeclaracionXSE(Rom, null);
+            Script script = new Script(Rom, (int)(Hex)txtOffsetHex.Text.Trim());
+            txtScript.Text =script.ToXSEOrdenadoPorBloques();
             return script;
         }
 
