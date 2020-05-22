@@ -59,12 +59,16 @@ namespace XSE.Wpf
         }
         public ZonaScript()
         {
+            
             InitializeComponent();
 
             cmbRomsCargadas.ItemsSource = lstRoms;
             cmbRomsCargadas.SelectionChanged += ChangeRom;
+
             
         }
+
+
         public byte[] Rom { get; set; }
         private void ChangeRom(object sender, SelectionChangedEventArgs e)
         {
@@ -108,18 +112,22 @@ namespace XSE.Wpf
             RomItem romItem;
 
             OpenFileDialog opnFile = new OpenFileDialog();
-            opnFile.Filter = "GBA|*.gba;*.bak|Todos|*.*";
+            opnFile.Filter = $"GBA|*.gba;*.bak|XSE Script|*.{FORMATOXSE}|Todos|*.*";
             if ( opnFile.ShowDialog().GetValueOrDefault())
             {
                 try
                 {
-                    romItem = new RomItem() { Path =  opnFile.FileName};
-                    if (lstRoms.IndexOf(romItem)< 0)
+                    if (!opnFile.FileName.EndsWith(FORMATOXSE))
                     {
-                        lstRoms.Add(romItem);
-                        Refresh();
+                        romItem = new RomItem() { Path = opnFile.FileName };
+                        if (lstRoms.IndexOf(romItem) < 0)
+                        {
+                            lstRoms.Add(romItem);
+                            Refresh();
+                        }
+                        cmbRomsCargadas.SelectedIndex = lstRoms.IndexOf(romItem);
                     }
-                    cmbRomsCargadas.SelectedIndex = lstRoms.IndexOf(romItem);
+                    else txtScript.Text = File.ReadAllText(opnFile.FileName);
                 }
                 catch (Exception ex)
                 {
