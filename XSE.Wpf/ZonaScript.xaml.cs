@@ -112,7 +112,7 @@ namespace XSE.Wpf
             RomItem romItem;
 
             OpenFileDialog opnFile = new OpenFileDialog();
-            opnFile.Filter = $"GBA|*.gba;*.bak|XSE Script|*.{FORMATOXSE}|Todos|*.*";
+            opnFile.Filter = $"Aceptados|*.gba;*.bak;*.{FORMATOXSE}|GBA|*.gba;*.bak|XSE Script|*.{FORMATOXSE}|Todos|*.*";
             if ( opnFile.ShowDialog().GetValueOrDefault())
             {
                 try
@@ -158,8 +158,9 @@ namespace XSE.Wpf
         {
             try
             {
-                txtScript.Text.GetFromXSE();
-                MessageBox.Show("Todo correcto!");
+                if (txtScript.Text.Equals(txtScript.Text.GetFromXSE().First().ToXSEOrdenadoPorBloques()))
+                    MessageBox.Show("Todo correcto!");
+                else MessageBox.Show("Hay problemas!!");
             }
             catch(ScriptXSEMalFormadoException ex)
             {
