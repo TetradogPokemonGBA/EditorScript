@@ -158,9 +158,9 @@ namespace XSE.Wpf
         {
             try
             {
-                if (txtScript.Text.Equals(txtScript.Text.GetFromXSE().First().ToXSEOrdenadoPorBloques()))
-                    MessageBox.Show("Todo correcto!");
-                else MessageBox.Show("Hay problemas!!");
+                  txtScript.Text.GetFromXSE();
+                  MessageBox.Show("Todo correcto");
+
             }
             catch(ScriptXSEMalFormadoException ex)
             {
