@@ -93,12 +93,20 @@ namespace XSE.Wpf
 
             if(saveFileDialog.ShowDialog().GetValueOrDefault())
             {
-                if(Rom==default||saveFileDialog.FileName.EndsWith(FORMATOXSE))
+                if(Rom==default||saveFileDialog.FileName.EndsWith(FORMATOXSE) || saveFileDialog.FileName.EndsWith(".raw"))
                 {
-                    if (!saveFileDialog.FileName.EndsWith(FORMATOXSE))
-                        pathFile = $"{saveFileDialog.FileName}.{FORMATOXSE}";
-                    else pathFile = saveFileDialog.FileName;
-                    File.WriteAllText(pathFile, txtScript.Text);
+                    if (saveFileDialog.FileName.EndsWith(".raw"))
+                    {
+                        ByteScriptBuilder.GetBytesTemp(txtScript.Text.GetFromXSE()).Save(saveFileDialog.FileName);
+                    }
+                    else
+                    {
+                        if (!saveFileDialog.FileName.EndsWith(FORMATOXSE))
+                            pathFile = $"{saveFileDialog.FileName}.{FORMATOXSE}";
+                        else pathFile = saveFileDialog.FileName;
+
+                        File.WriteAllText(pathFile, txtScript.Text);
+                    }
                 }else
                 {
                     File.WriteAllBytes(saveFileDialog.FileName, Rom);
@@ -112,12 +120,17 @@ namespace XSE.Wpf
             RomItem romItem;
 
             OpenFileDialog opnFile = new OpenFileDialog();
-            opnFile.Filter = $"Aceptados|*.gba;*.bak;*.{FORMATOXSE}|GBA|*.gba;*.bak|XSE Script|*.{FORMATOXSE}|Todos|*.*";
+            opnFile.Filter = $"Aceptados|*.gba;*.bak;*.{FORMATOXSE};*.raw|GBA|*.gba;*.bak|XSE Script|*.{FORMATOXSE}|GBA Bytes Exported|*.raw|Todos|*.*";
             if ( opnFile.ShowDialog().GetValueOrDefault())
             {
                 try
+
                 {
-                    if (!opnFile.FileName.EndsWith(FORMATOXSE))
+                    if (opnFile.FileName.EndsWith("raw"))
+                    {//empieza por un script así que no hace falta añadir el inicio :)
+                        txtScript.Text = new Script(File.ReadAllBytes(opnFile.FileName)).ToXSEOrdenadoPorBloques();
+                    }
+                    else if (!opnFile.FileName.EndsWith(FORMATOXSE))
                     {
                         romItem = new RomItem() { Path = opnFile.FileName };
                         if (lstRoms.IndexOf(romItem) < 0)
